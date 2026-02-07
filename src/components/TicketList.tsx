@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, Filter, ChevronDown } from 'lucide-react';
-import { TicketCard } from './TicketCard';
+import { TicketItem } from './TicketItem';
 
 interface TicketListProps {
     onTicketSelect?: () => void;
@@ -38,7 +38,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     Today
                 </div>
 
-                <TicketCard
+                <TicketItem
                     id="OPS-216"
                     title="Soluta quam velit"
                     status="todo"
@@ -46,7 +46,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     date="2 Jun"
                     onClick={onTicketSelect}
                 />
-                <TicketCard
+                <TicketItem
                     id="OPS-102"
                     title="Laudantium neque veritatis"
                     status="todo"
@@ -55,7 +55,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     active
                     onClick={onTicketSelect}
                 />
-                <TicketCard
+                <TicketItem
                     id="OPS-216"
                     title="Molestiae saepe illum"
                     status="done"
@@ -68,7 +68,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     Yesterday
                 </div>
 
-                <TicketCard
+                <TicketItem
                     id="APP-992"
                     title="Deploy new authentication service"
                     status="inprogress"
@@ -76,7 +76,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     date="31 May"
                     onClick={onTicketSelect}
                 />
-                <TicketCard
+                <TicketItem
                     id="APP-881"
                     title="Fix CSS overflow in dashboard mobile view"
                     status="todo"

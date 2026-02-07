@@ -1,14 +1,14 @@
 import React from 'react';
 import { MoreHorizontal, Phone, Star, UserPlus, ArrowLeft } from 'lucide-react';
-import { MessageBubble } from './MessageBubble';
-import { Composer } from './Composer';
+import { Message } from './Message';
+import { ChatInput } from './ChatInput';
 
-interface ChatAreaProps {
+interface ChatWindowProps {
     onBack?: () => void;
     onToggleDetails?: () => void;
 }
 
-export const ChatArea: React.FC<ChatAreaProps> = ({ onBack, onToggleDetails }) => {
+export const ChatWindow: React.FC<ChatWindowProps> = ({ onBack, onToggleDetails }) => {
     return (
         <div className="flex flex-col h-full bg-slate-50 relative">
             {/* Header */}
@@ -42,20 +42,20 @@ export const ChatArea: React.FC<ChatAreaProps> = ({ onBack, onToggleDetails }) =
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-6">
-                <MessageBubble
+                <Message
                     id="1"
                     sender="Allie Harmon"
                     timestamp="10:31 AM"
                     content="Ex beatae aliquid mollitia. Enim doloremque molestiae voluptatem recusandae. Maxime beatae nostrum ut."
                 />
-                <MessageBubble
+                <Message
                     id="2"
                     sender="Me"
                     timestamp="10:35 AM"
                     isMe
                     content="Thinking about the layout for this new feature. It needs to be flexible enough to handle various screen sizes."
                 />
-                <MessageBubble
+                <Message
                     id="3"
                     sender="Allie Harmon"
                     timestamp="10:42 AM"
@@ -65,7 +65,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({ onBack, onToggleDetails }) =
 
             {/* Composer */}
             <div className="shrink-0 z-20">
-                <Composer />
+                <ChatInput />
             </div>
         </div>
     );

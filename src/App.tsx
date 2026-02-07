@@ -1,8 +1,8 @@
-import { MainLayout } from './components/layout/MainLayout';
+import { Layout } from './Layout';
 import './index.css';
 
 function App() {
-  return <MainLayout />;
+  return <Layout />;
 }
 
 export default App;

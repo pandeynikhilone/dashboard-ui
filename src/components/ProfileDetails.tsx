@@ -1,7 +1,7 @@
 import React from 'react';
 import { User, Flag, Tag, Calendar, CheckCircle } from 'lucide-react';
 
-export const DetailsPanel: React.FC = () => {
+export const ProfileDetails: React.FC = () => {
     return (
         <div className="flex flex-col h-full bg-white">
             <div className="p-4 border-b border-gray-100 flex items-center justify-between">

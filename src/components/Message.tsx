@@ -10,7 +10,7 @@ interface MessageProps {
     attachments?: { name: string; url: string }[];
 }
 
-export const MessageBubble: React.FC<MessageProps> = ({ sender, avatar, content, timestamp, isMe, attachments }) => {
+export const Message: React.FC<MessageProps> = ({ sender, avatar, content, timestamp, isMe, attachments }) => {
     return (
         <div className={`flex gap-3 mb-6 ${isMe ? 'flex-row-reverse' : 'flex-row'}`}>
             {/* Avatar */}
@@ -34,7 +34,7 @@ export const MessageBubble: React.FC<MessageProps> = ({ sender, avatar, content,
                 </div>
 
                 <div className={`p-4 rounded-xl text-sm leading-relaxed shadow-sm
-          ${isMe
+                    ${isMe
                         ? 'bg-blue-600 text-white rounded-tr-none'
                         : 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'
                     }`}

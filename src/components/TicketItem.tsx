@@ -12,7 +12,7 @@ interface TicketProps {
     onClick?: () => void;
 }
 
-export const TicketCard: React.FC<TicketProps> = ({ id, title, status, priority, date, active, onClick }) => {
+export const TicketItem: React.FC<TicketProps> = ({ id, title, status, priority, date, active, onClick }) => {
     return (
         <div
             onClick={onClick}

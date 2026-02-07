@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { Sidebar } from './Sidebar';
 import { X } from 'lucide-react';
 
-interface MobileDrawerProps {
+interface MobileMenuProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) => {
+export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     const drawerRef = useRef<HTMLDivElement>(null);
 
     // Close on click outside

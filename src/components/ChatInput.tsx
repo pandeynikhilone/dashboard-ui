@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bold, Italic, Paperclip, Image, Smile, Send } from 'lucide-react';
 
-export const Composer: React.FC = () => {
+export const ChatInput: React.FC = () => {
     return (
         <div className="p-4 bg-white border-t border-gray-100">
             <div className="flex flex-col border border-gray-200 rounded-xl shadow-sm focus-within:ring-2 focus-within:ring-blue-100 transition-all">
