@@ -15,8 +15,8 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     <span className="font-semibold text-gray-800">My Tickets</span>
                     <ChevronDown size={16} className="text-gray-400 group-hover:text-gray-600" />
                 </div>
-                <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded">
-                    <Filter size={18} />
+                <button className="p-3 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded transition-colors">
+                    <Filter size={20} />
                 </button>
             </div>
 

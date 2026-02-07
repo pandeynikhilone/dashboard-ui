@@ -40,7 +40,7 @@ export const Composer: React.FC = () => {
 };
 
 const ToolbarButton = ({ icon }: { icon: React.ReactNode }) => (
-    <button className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded transition-colors">
+    <button className="p-2 md:p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center">
         {icon}
     </button>
 );
