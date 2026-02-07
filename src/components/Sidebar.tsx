@@ -10,7 +10,7 @@ export const Sidebar: React.FC<{ mobile?: boolean }> = ({ mobile }) => {
                 </div>
             )}
 
-            <div className={`flex ${mobile ? 'flex-row gap-8' : 'flex-col gap-4 w-full px-2'}`}>
+            <div className={`flex ${mobile ? 'flex-row gap-8' : 'flex-col items-center gap-4 w-full px-2'}`}>
                 <NavItem icon={<Home size={20} />} active />
                 <NavItem icon={<MessageSquare size={20} />} />
                 <NavItem icon={<CheckSquare size={20} />} />
@@ -18,7 +18,7 @@ export const Sidebar: React.FC<{ mobile?: boolean }> = ({ mobile }) => {
             </div>
 
             {!mobile && (
-                <div className="mt-auto flex flex-col gap-4 w-full px-2 pb-4">
+                <div className="mt-auto flex flex-col items-center gap-4 w-full px-2 pb-4">
                     <NavItem icon={<Bell size={20} />} />
                     <NavItem icon={<Settings size={20} />} />
                     <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-yellow-500 mt-2 cursor-pointer"></div>
