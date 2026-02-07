@@ -5,7 +5,7 @@ export const Sidebar: React.FC<{ mobile?: boolean }> = ({ mobile }) => {
     return (
         <nav className={`flex ${mobile ? 'flex-row justify-around w-full' : 'flex-col items-center gap-6 w-full'}`}>
             {!mobile && (
-                <div className="p-2 bg-blue-600 rounded-full mb-4">
+                <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full mb-4 shadow-sm">
                     <span className="text-white font-bold text-xl">H</span>
                 </div>
             )}
