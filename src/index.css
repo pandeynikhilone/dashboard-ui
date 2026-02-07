@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@source "../src";
+
+@theme {
+  --color-brand-blue: #1E40AF;
+  --color-sidebar-dark: #0F172A;
+  --color-bg-soft: #F3F4F6;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-soft text-gray-900;
+  }
+}
