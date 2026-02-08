@@ -3,6 +3,15 @@ import { Search, Filter, ChevronDown, Plus } from 'lucide-react';
 import { TicketItem } from './TicketItem';
 import { TicketModal } from './TicketModal';
 
+interface Ticket {
+    id: string;
+    title: string;
+    status: 'todo' | 'inprogress' | 'done';
+    priority: 'high' | 'medium' | 'low';
+    date: string;
+    active?: boolean;
+}
+
 interface TicketListProps {
     onTicketSelect?: () => void;
 }
@@ -12,7 +21,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
     const dateTimeObj = new Date();
 
     // Initial mock data
-    const [tickets, setTickets] = useState([
+    const [tickets, setTickets] = useState<Ticket[]>([
         { id: 'OPS-216', title: 'Soluta quam velit', status: 'todo', priority: 'high', date: '2 Jun' },
         { id: 'OPS-102', title: 'Laudantium neque veritatis', status: 'todo', priority: 'high', date: new Date().toLocaleDateString(), active: true },
         { id: 'OPS-217', title: 'Molestiae saepe illum', status: 'done', priority: 'medium', date: '1 Jun' },
@@ -21,11 +30,11 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
     ]);
 
     const handleCreateTicket = (ticketData: any) => {
-        const newTicket = {
+        const newTicket: Ticket = {
             id: `NEW-${Math.floor(Math.random() * 1000)}`,
             title: ticketData.title,
             status: 'todo',
-            priority: ticketData.priority,
+            priority: ticketData.priority as 'high' | 'medium' | 'low',
             date: `${dateTimeObj.toLocaleDateString()}`,
             active: false
         };
