@@ -1,23 +1,64 @@
-import React from 'react';
-import { Search, Filter, ChevronDown } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, Filter, ChevronDown, Plus } from 'lucide-react';
 import { TicketItem } from './TicketItem';
+import { TicketModal } from './TicketModal';
 
 interface TicketListProps {
     onTicketSelect?: () => void;
 }
 
 export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const dateTimeObj = new Date();
+
+    // Initial mock data
+    const [tickets, setTickets] = useState([
+        { id: 'OPS-216', title: 'Soluta quam velit', status: 'todo', priority: 'high', date: '2 Jun' },
+        { id: 'OPS-102', title: 'Laudantium neque veritatis', status: 'todo', priority: 'high', date: new Date().toLocaleDateString(), active: true },
+        { id: 'OPS-217', title: 'Molestiae saepe illum', status: 'done', priority: 'medium', date: '1 Jun' },
+        { id: 'APP-992', title: 'Deploy new authentication service', status: 'inprogress', priority: 'low', date: '31 May' },
+        { id: 'APP-881', title: 'Fix CSS overflow in dashboard mobile view', status: 'todo', priority: 'medium', date: '31 May' },
+    ]);
+
+    const handleCreateTicket = (ticketData: any) => {
+        const newTicket = {
+            id: `NEW-${Math.floor(Math.random() * 1000)}`,
+            title: ticketData.title,
+            status: 'todo',
+            priority: ticketData.priority,
+            date: `${dateTimeObj.toLocaleDateString()}`,
+            active: false
+        };
+        setTickets([newTicket, ...tickets]);
+        setIsCreateOpen(false);
+    };
+
     return (
-        <div className="flex flex-col h-full bg-white">
+        <div className="flex flex-col h-full bg-white relative">
+            <TicketModal
+                isOpen={isCreateOpen}
+                onClose={() => setIsCreateOpen(false)}
+                onSubmit={handleCreateTicket}
+            />
+
             {/* Header / Filter */}
             <div className="p-4 border-b border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-1 cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors group">
                     <span className="font-semibold text-gray-800">My Tickets</span>
                     <ChevronDown size={16} className="text-gray-400 group-hover:text-gray-600" />
                 </div>
-                <button className="p-3 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded transition-colors">
-                    <Filter size={20} />
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setIsCreateOpen(true)}
+                        className="p-2 text-brand-blue hover:bg-blue-50 rounded-lg transition-colors"
+                        title="New Ticket"
+                    >
+                        <Plus size={20} />
+                    </button>
+                    <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                        <Filter size={20} />
+                    </button>
+                </div>
             </div>
 
             {/* Search */}
@@ -38,52 +79,18 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     Today
                 </div>
 
-                <TicketItem
-                    id="OPS-216"
-                    title="Soluta quam velit"
-                    status="todo"
-                    priority="high"
-                    date="2 Jun"
-                    onClick={onTicketSelect}
-                />
-                <TicketItem
-                    id="OPS-102"
-                    title="Laudantium neque veritatis"
-                    status="todo"
-                    priority="high"
-                    date="2 Jun"
-                    active
-                    onClick={onTicketSelect}
-                />
-                <TicketItem
-                    id="OPS-216"
-                    title="Molestiae saepe illum"
-                    status="done"
-                    priority="medium"
-                    date="1 Jun"
-                    onClick={onTicketSelect}
-                />
-
-                <div className="px-2 py-2 mt-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    Yesterday
-                </div>
-
-                <TicketItem
-                    id="APP-992"
-                    title="Deploy new authentication service"
-                    status="inprogress"
-                    priority="low"
-                    date="31 May"
-                    onClick={onTicketSelect}
-                />
-                <TicketItem
-                    id="APP-881"
-                    title="Fix CSS overflow in dashboard mobile view"
-                    status="todo"
-                    priority="medium"
-                    date="31 May"
-                    onClick={onTicketSelect}
-                />
+                {tickets.map((ticket) => (
+                    <TicketItem
+                        key={ticket.id}
+                        id={ticket.id}
+                        title={ticket.title}
+                        status={ticket.status}
+                        priority={ticket.priority}
+                        date={ticket.date}
+                        active={ticket.active}
+                        onClick={onTicketSelect}
+                    />
+                ))}
             </div>
         </div>
     );

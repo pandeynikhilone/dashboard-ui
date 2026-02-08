@@ -45,6 +45,12 @@ export const TicketItem: React.FC<TicketProps> = ({ id, title, status, priority,
                 {priority === 'high' && (
                     <AlertCircle size={14} className="text-red-500 ml-auto" />
                 )}
+                {priority === 'low' && (
+                    <AlertCircle size={14} className="text-green-500 ml-auto" />
+                )}
+                {priority === 'medium' && (
+                    <AlertCircle size={14} className="text-yellow-500 ml-auto" />
+                )}
             </div>
         </div>
     );
