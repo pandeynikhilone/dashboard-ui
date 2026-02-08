@@ -1,7 +1,27 @@
 import React from 'react';
 import { Bold, Italic, Paperclip, Image, Smile, Send } from 'lucide-react';
 
-export const ChatInput: React.FC = () => {
+interface ChatInputProps {
+    onSendMessage?: (content: string) => void;
+}
+
+export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
+    const [message, setMessage] = React.useState('');
+
+    const handleSend = () => {
+        if (message.trim() && onSendMessage) {
+            onSendMessage(message);
+            setMessage('');
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    };
+
     return (
         <div className="p-4 bg-white border-t border-gray-100">
             <div className="flex flex-col border border-gray-200 rounded-xl shadow-sm focus-within:ring-2 focus-within:ring-blue-100 transition-all">
@@ -17,6 +37,9 @@ export const ChatInput: React.FC = () => {
 
                 {/* Input */}
                 <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Write a reply..."
                     className="w-full p-3 min-h-[80px] text-sm text-gray-800 resize-none focus:outline-none bg-transparent"
                 />
@@ -29,7 +52,11 @@ export const ChatInput: React.FC = () => {
                             <span className="text-xs text-gray-500 font-medium">Internal Note</span>
                         </label>
                     </div>
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium pr-4">
+                    <button
+                        onClick={handleSend}
+                        disabled={!message.trim()}
+                        className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-2 rounded-lg transition-colors flex items-center gap-2 text-sm font-medium pr-4"
+                    >
                         <Send size={16} />
                         Send
                     </button>

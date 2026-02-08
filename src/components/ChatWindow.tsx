@@ -9,6 +9,33 @@ interface ChatWindowProps {
 }
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({ onBack, onToggleDetails }) => {
+    const [messages, setMessages] = React.useState([
+        { id: '1', sender: 'Allie Harmon', timestamp: '10:31 AM', content: 'Ex beatae aliquid mollitia. Enim doloremque molestiae voluptatem recusandae. Maxime beatae nostrum ut.', isMe: false },
+        { id: '2', sender: 'Me', timestamp: '10:35 AM', content: 'Thinking about the layout for this new feature. It needs to be flexible enough to handle various screen sizes.', isMe: true },
+        { id: '3', sender: 'Allie Harmon', timestamp: '10:42 AM', content: 'Dolorem similique et aliquid illum dolor. Vel quo magnam.', isMe: false },
+    ]);
+
+    const messagesEndRef = React.useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    React.useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const handleSendMessage = (content: string) => {
+        const newMessage = {
+            id: Date.now().toString(),
+            sender: 'Me',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            content,
+            isMe: true,
+        };
+        setMessages([...messages, newMessage]);
+    };
+
     return (
         <div className="flex flex-col h-full bg-slate-50 relative">
             {/* Header */}
@@ -42,30 +69,22 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onBack, onToggleDetails 
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-6">
-                <Message
-                    id="1"
-                    sender="Allie Harmon"
-                    timestamp="10:31 AM"
-                    content="Ex beatae aliquid mollitia. Enim doloremque molestiae voluptatem recusandae. Maxime beatae nostrum ut."
-                />
-                <Message
-                    id="2"
-                    sender="Me"
-                    timestamp="10:35 AM"
-                    isMe
-                    content="Thinking about the layout for this new feature. It needs to be flexible enough to handle various screen sizes."
-                />
-                <Message
-                    id="3"
-                    sender="Allie Harmon"
-                    timestamp="10:42 AM"
-                    content="Dolorem similique et aliquid illum dolor. Vel quo magnam."
-                />
+                {messages.map((msg) => (
+                    <Message
+                        key={msg.id}
+                        id={msg.id}
+                        sender={msg.sender}
+                        timestamp={msg.timestamp}
+                        content={msg.content}
+                        isMe={msg.isMe}
+                    />
+                ))}
+                <div ref={messagesEndRef} />
             </div>
 
             {/* Composer */}
             <div className="shrink-0 z-20">
-                <ChatInput />
+                <ChatInput onSendMessage={handleSendMessage} />
             </div>
         </div>
     );

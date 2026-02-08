@@ -14,7 +14,7 @@ export const Message: React.FC<MessageProps> = ({ sender, avatar, content, times
     return (
         <div className={`flex gap-3 mb-6 ${isMe ? 'flex-row-reverse' : 'flex-row'}`}>
             {/* Avatar */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
                 <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
                     {avatar ? (
                         <img src={avatar} alt={sender} className="w-full h-full object-cover" />
