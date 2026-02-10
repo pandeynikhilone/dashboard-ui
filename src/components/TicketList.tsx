@@ -19,6 +19,8 @@ interface TicketListProps {
 export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const dateTimeObj = new Date();
+    const [filterPriority, setFilterPriority] = useState<'all' | 'high' | 'low' | 'medium'>('all');
+    const [filterVisible, setFilterVisible] = useState(false);
 
     // Initial mock data
     const [tickets, setTickets] = useState<Ticket[]>([
@@ -42,6 +44,8 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
         setIsCreateOpen(false);
     };
 
+    const filterData = filterPriority === 'all' ? tickets : tickets.filter(ticket => ticket.priority === filterPriority);
+
     return (
         <div className="flex flex-col h-full bg-white relative">
             <TicketModal
@@ -64,11 +68,20 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     >
                         <Plus size={20} />
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <button onClick={() => setFilterVisible(true)} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
                         <Filter size={20} />
                     </button>
                 </div>
             </div>
+
+            {/* filter UI  */}
+            {filterVisible && (
+                <div className='flex flex-col relative  left-10'>
+                    <button onClick={()=>setFilterPriority('high')}>high</button>
+                    <button onClick={()=> setFilterPriority('medium')}>medium</button>
+                    <button onClick={()=> setFilterPriority('low')}>low</button>
+                </div>
+            )}
 
             {/* Search */}
             <div className="px-4 py-3">
@@ -88,7 +101,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     Today
                 </div>
 
-                {tickets.map((ticket) => (
+                {filterData.map((ticket) => (
                     <TicketItem
                         key={ticket.id}
                         id={ticket.id}
