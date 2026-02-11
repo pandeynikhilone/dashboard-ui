@@ -19,6 +19,9 @@ interface TicketListProps {
 export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const dateTimeObj = new Date();
+    const [filter, setFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all');
+    const [openFilter, setOpenFilter] = useState(false);
+    const [SearchInput, setSearchInput] = useState('');
 
     // Initial mock data
     const [tickets, setTickets] = useState<Ticket[]>([
@@ -42,6 +45,13 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
         setIsCreateOpen(false);
     };
 
+    const searchResult = tickets.filter(ticket => {
+       const searchData = ticket.title.toLowerCase().includes(SearchInput.toLowerCase())
+        const filterData = filter === 'all' ? tickets : ticket.priority === filter;
+        return searchData && filterData;
+    });
+
+
     return (
         <div className="flex flex-col h-full bg-white relative">
             <TicketModal
@@ -64,17 +74,29 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     >
                         <Plus size={20} />
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <button onClick={() => setOpenFilter(prev => !prev)} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
                         <Filter size={20} />
                     </button>
                 </div>
             </div>
+
+            {openFilter && 
+                <div className='flex flex-col left-10'>
+                    <button onClick={() => setFilter('high')}>High</button>
+                    <button onClick={() => setFilter('medium')}>Medium</button>
+                    <button onClick={() => setFilter('low')}>Low</button>
+                    <button onClick={() => setFilter('all')}>CLEAR</button>
+                </div>
+            }
+
+            
 
             {/* Search */}
             <div className="px-4 py-3">
                 <div className="relative">
                     <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
+                        onChange={e => setSearchInput(e.target.value)}
                         type="text"
                         placeholder="Search tickets"
                         className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-gray-400"
@@ -88,7 +110,7 @@ export const TicketList: React.FC<TicketListProps> = ({ onTicketSelect }) => {
                     Today
                 </div>
 
-                {tickets.map((ticket) => (
+                {searchResult.map((ticket) => (
                     <TicketItem
                         key={ticket.id}
                         id={ticket.id}
